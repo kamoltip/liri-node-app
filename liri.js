@@ -26,11 +26,11 @@ function omdb() {
   var request = require("request");
   var movieSearch = process.argv[3];
   var result = '';
-    if (movieSearch){
-      result = movieSearch;
-    } else {
-      result = 'mr+nobody';
-    }
+  if (movieSearch) {
+    result = movieSearch;
+  } else {
+    result = 'mr+nobody';
+  }
 
 
   var queryUrl = "http://www.omdbapi.com/?t=" + result + "&y=&plot=short&apikey=40e9cece";
@@ -113,28 +113,30 @@ function toggle() {
   var Spotify = require('node-spotify-api');
   var nodeArgvs = process.argv;
   var readFile = '';
+  var dataArr;
   var spotify = new Spotify({
     id: key.spotifyKey.id,
     secret: key.spotifyKey.secret
-});
+  });
   for (var i = 3; i < nodeArgvs.length; i++) {
     readFile = readFile + '' + nodeArgvs[i];
+    console.log(readFile);
   }
-  fs.readFile('random.txt', 'utf8', function(error,data){
+  fs.readFile('random.txt', 'utf8', function(error, data) {
     console.log(data);
     var dataArr = data.split(',');
-    console.log(dataArr);
+    console.log('node liri.js '+ dataArr);
   })
+
+  dataArr;
   spotify.search({
     type: 'track',
-    query: nodeArgvs[i]
+    query: 'I want it that way',
+
   }, function(err, data) {
-
-
     if (err) {
       return console.log("'The Sign' by Ace of Base.");
     }
-
     console.log(JSON.stringify(data, null, 2));
 
   });
