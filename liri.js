@@ -65,8 +65,6 @@ function spotify(songName) {
     secret: key.spotifyKey.secret
   });
 
-
-
   spotify.search({
     type: 'track',
     query: songName
@@ -81,7 +79,7 @@ function spotify(songName) {
       var album = data.tracks.items[i].album_type;
 
       for (var z = 0; z < arr.length; z++) {
-        console.log('Song : '+ data.tracks.items[i].name + '\nArtist : ' + arr[z].name + '\nAlbum : ' + data.tracks.items[i].album.name + '\nSong Demo URL:' + data.tracks.items[i].preview_url );
+        console.log('Song : ' + data.tracks.items[i].name + '\nArtist : ' + arr[z].name + '\nAlbum : ' + data.tracks.items[i].album.name + '\nSong Demo URL:' + data.tracks.items[i].preview_url);
         console.log('\n------------------------------\n');
       }
     }
@@ -113,7 +111,7 @@ function twitter() {
     if (!error && response.statusCode === 200) {
 
       for (var i = 0; i < tweets.length; i++) {
-        console.log("---------------------------");
+        console.log("\n---------------------------\n");
         console.log(tweets[i].text);
         console.log(tweets[i].created_at);
       }
@@ -139,11 +137,9 @@ function toggle() {
     // console.log(data);
     var dataArr = data.split(',');
     if (dataArr.length === 2) {
-   spotify(dataArr[1]);
- }
- else if (dataArr.length === 1) {
-   spotify(dataArr[0]);
-    // console.log(dataArr[0]);
-  }
+      spotify(dataArr[1]);
+    } else if (dataArr.length === 1) {
+      spotify(dataArr[0]);
+    }
   });
 };
