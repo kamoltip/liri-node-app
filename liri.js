@@ -76,12 +76,12 @@ function spotify(songName) {
     }
 
     for (var i = 0; i < data.tracks.items.length; i++) {
-      // console.log(data.tracks.items[i]);
-      var arr = data.tracks.items[i].available_markets;
+      console.log(data.tracks.items[i]);
+      // var arr = data.tracks.items[i].available_markets;
 
-      for (var z = 0; z < arr.length; z++) {
-        console.log(arr[z]);
-      }
+      // for (var z = 0; z < arr.length; z++) {
+      //   console.log(arr[z]);
+      // }
     }
 
   });
@@ -128,23 +128,20 @@ function toggle() {
   var nodeArgvs = process.argv;
   var readFile = '';
   var dataArr;
-  // var spotify = new Spotify({
-  //   id: key.spotifyKey.id,
-  //   secret: key.spotifyKey.secret
-  // });
+
   for (var i = 3; i < nodeArgvs.length; i++) {
     readFile = readFile + '' + nodeArgvs[i];
     console.log(readFile);
   }
   fs.readFile('random.txt', 'utf8', function(error, data) {
-    console.log(data);
+    // console.log(data);
     var dataArr = data.split(',');
     if (dataArr.length === 2) {
    spotify(dataArr[1]);
  }
  else if (dataArr.length === 1) {
-   spotify();
-    console.log(dataArr[0]);
+   spotify(dataArr[0]);
+    // console.log(dataArr[0]);
   }
   });
 };
