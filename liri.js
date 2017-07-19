@@ -1,6 +1,9 @@
 var key = require("./key.js");
 var Twitter = require("twitter");
 var Spotify = require('node-spotify-api');
+var fs = require('fs');
+songName = process.argv[3];
+
 
 
 // console.log(key.twitterKey.consumer_key);
@@ -10,7 +13,7 @@ switch (process.argv[2]) {
     twitter();
     break;
   case "spotify-this-song":
-    spotify();
+    spotify(songName);
     break;
   case "movie-this":
     omdb();
@@ -53,7 +56,7 @@ function omdb() {
   });
 }
 
-function spotify() {
+function spotify(songName) {
 
   var Spotify = require('node-spotify-api');
   // console.log(key.spotifyKey.id);
@@ -62,14 +65,25 @@ function spotify() {
     secret: key.spotifyKey.secret
   });
 
+
+
   spotify.search({
     type: 'track',
-    query: process.argv[3]
+    query: songName
   }, function(err, data) {
     if (err) {
       return console.log("'The Sign' by Ace of Base.");
     }
-    console.log(JSON.stringify(data, null, 2));
+
+    for (var i = 0; i < data.tracks.items.length; i++) {
+      // console.log(data.tracks.items[i]);
+      var arr = data.tracks.items[i].available_markets;
+
+      for (var z = 0; z < arr.length; z++) {
+        console.log(arr[z]);
+      }
+    }
+
   });
 };
 
@@ -109,15 +123,15 @@ function twitter() {
 };
 
 function toggle() {
-  var fs = require('fs');
-  var Spotify = require('node-spotify-api');
+
+  // var Spotify = require('node-spotify-api');
   var nodeArgvs = process.argv;
   var readFile = '';
   var dataArr;
-  var spotify = new Spotify({
-    id: key.spotifyKey.id,
-    secret: key.spotifyKey.secret
-  });
+  // var spotify = new Spotify({
+  //   id: key.spotifyKey.id,
+  //   secret: key.spotifyKey.secret
+  // });
   for (var i = 3; i < nodeArgvs.length; i++) {
     readFile = readFile + '' + nodeArgvs[i];
     console.log(readFile);
@@ -125,19 +139,12 @@ function toggle() {
   fs.readFile('random.txt', 'utf8', function(error, data) {
     console.log(data);
     var dataArr = data.split(',');
-    console.log('node liri.js '+ dataArr);
-  })
-
-  dataArr;
-  spotify.search({
-    type: 'track',
-    query: 'I want it that way',
-
-  }, function(err, data) {
-    if (err) {
-      return console.log("'The Sign' by Ace of Base.");
-    }
-    console.log(JSON.stringify(data, null, 2));
-
+    if (dataArr.length === 2) {
+   spotify(dataArr[1]);
+ }
+ else if (dataArr.length === 1) {
+   spotify();
+    console.log(dataArr[0]);
+  }
   });
 };
