@@ -76,12 +76,14 @@ function spotify(songName) {
     }
 
     for (var i = 0; i < data.tracks.items.length; i++) {
-      console.log(data.tracks.items[i]);
-      // var arr = data.tracks.items[i].available_markets;
+      // console.log(data.tracks.items[i]);
+      var arr = data.tracks.items[i].artists;
+      var album = data.tracks.items[i].album_type;
 
-      // for (var z = 0; z < arr.length; z++) {
-      //   console.log(arr[z]);
-      // }
+      for (var z = 0; z < arr.length; z++) {
+        console.log('Song : '+ data.tracks.items[i].name + '\nArtist : ' + arr[z].name + '\nAlbum : ' + data.tracks.items[i].album.name + '\nSong Demo URL:' + data.tracks.items[i].preview_url );
+        console.log('\n------------------------------\n');
+      }
     }
 
   });
